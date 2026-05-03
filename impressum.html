@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Impressum – Sabine Boldt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --turquoise: #7ECECE; --lilac: #C5A8D4; --peach: #F5C5A3; --rose: #E8A0B0;
+      --glass-bg: rgba(255,255,255,0.18); --glass-border: rgba(255,255,255,0.38);
+      --text-dark: #3D2E4A; --text-mid: #6B5578; --text-light: rgba(61,46,74,0.55);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'DM Sans', system-ui, sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--sans); color: var(--text-dark); overflow-x: hidden; }
+    a { text-decoration: none; color: inherit; }
+
+    .mesh-bg { position: fixed; inset: 0; z-index: -2; background: #F5EEFF; overflow: hidden; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(80px); will-change: transform; }
+    .orb-1 { width: 650px; height: 650px; background: radial-gradient(circle, #B8E8E8 0%, #7ECECE 55%, transparent 100%); top: -15%; left: -8%; opacity: .65; animation: drift1 22s ease-in-out infinite; }
+    .orb-2 { width: 520px; height: 520px; background: radial-gradient(circle, #DDD0EC 0%, #C5A8D4 55%, transparent 100%); top: 15%; right: -8%; opacity: .6; animation: drift2 19s ease-in-out infinite; }
+    .orb-3 { width: 480px; height: 480px; background: radial-gradient(circle, #FAE0CF 0%, #F5C5A3 55%, transparent 100%); bottom: 5%; left: 10%; opacity: .6; animation: drift3 26s ease-in-out infinite; }
+    @keyframes drift1 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(55px,45px) scale(1.07); } 66% { transform: translate(-30px,65px) scale(.94); } }
+    @keyframes drift2 { 0%,100% { transform: translate(0,0) scale(1); } 33% { transform: translate(-55px,60px) scale(1.05); } 66% { transform: translate(45px,-40px) scale(.92); } }
+    @keyframes drift3 { 0%,100% { transform: translate(0,0) scale(1); } 25% { transform: translate(70px,-50px) scale(1.09); } 75% { transform: translate(-45px,30px) scale(.91); } }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 2.5rem;
+      background: rgba(245,238,255,.14);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.28);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.15rem; font-weight: 500; letter-spacing: .03em; color: var(--text-dark); }
+
+    main { max-width: 760px; margin: 0 auto; padding: 9rem 2rem 6rem; }
+
+    .page-label {
+      font-size: .72rem; font-weight: 400; letter-spacing: .25em; text-transform: uppercase;
+      color: var(--turquoise); display: flex; align-items: center; gap: .7rem; margin-bottom: .9rem;
+    }
+    .page-label::after { content: ''; display: inline-block; width: 28px; height: 1px; background: var(--turquoise); }
+    h1 { font-family: var(--serif); font-size: clamp(2.2rem,5vw,3.2rem); font-weight: 400; color: var(--text-dark); margin-bottom: 3rem; line-height: 1.2; }
+
+    .card {
+      background: var(--glass-bg); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--glass-border); box-shadow: 0 8px 40px rgba(197,168,212,.18);
+      border-radius: 24px; padding: 2.4rem; margin-bottom: 1.6rem;
+    }
+    .card h2 { font-family: var(--serif); font-size: 1.35rem; font-weight: 500; color: var(--text-dark); margin-bottom: 1rem; }
+    .card p, .card address { font-size: .9rem; font-weight: 300; line-height: 1.9; color: var(--text-mid); font-style: normal; }
+    .card p + p { margin-top: .7rem; }
+    .card a { color: var(--text-dark); border-bottom: 1px solid rgba(197,168,212,.5); transition: border-color .3s; }
+    .card a:hover { border-color: var(--lilac); }
+
+    /* !! PLATZHALTER-MARKIERUNG !! */
+    .todo {
+      display: inline-block;
+      background: #FFD600;
+      color: #3D2E4A;
+      font-weight: 600;
+      font-size: .82rem;
+      padding: .15rem .5rem;
+      border-radius: 4px;
+      letter-spacing: .03em;
+    }
+
+    footer {
+      padding: 3rem 2rem; text-align: center;
+      border-top: 1px solid rgba(255,255,255,.3);
+      background: rgba(255,255,255,.09);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    .footer-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; color: var(--text-dark); margin-bottom: .2rem; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; list-style: none; margin-top: 1rem; }
+    .footer-links a { font-size: .74rem; letter-spacing: .08em; color: var(--text-light); transition: color .3s; }
+    .footer-links a:hover { color: var(--text-dark); }
+    .footer-copy { font-size: .68rem; color: rgba(107,85,120,.38); margin-top: 1.2rem; }
+  </style>
+</head>
+<body>
+
+  <div class="mesh-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Sabine Boldt</a>
+  </nav>
+
+  <main>
+    <p class="page-label">Rechtliches</p>
+    <h1>Impressum</h1>
+
+    <div class="card">
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <address>
+        Sabine Boldt<br>
+        <span class="todo">⚠ Straße &amp; Hausnummer eintragen</span><br>
+        <span class="todo">⚠ PLZ &amp; Ort eintragen</span>
+      </address>
+    </div>
+
+    <div class="card">
+      <h2>Kontakt</h2>
+      <p>Telefon: 01520 2626265</p>
+      <p>E-Mail: <span class="todo">⚠ E-Mail-Adresse eintragen</span></p>
+    </div>
+
+    <div class="card">
+      <h2>Berufsbezeichnung</h2>
+      <p>Gesundheitsberaterin (selbständig)</p>
+      <p>Tätigkeitsland: Deutschland</p>
+    </div>
+
+    <div class="card">
+      <h2>Steuernummer</h2>
+      <p><span class="todo">⚠ Steuernummer eintragen – oder diesen Abschnitt löschen, falls nicht gewünscht</span></p>
+    </div>
+
+    <div class="card">
+      <h2>Verantwortlich für den Inhalt (§ 18 Abs. 2 MStV)</h2>
+      <address>
+        Sabine Boldt<br>
+        <span class="todo">⚠ Adresse (wie oben) wiederholen</span>
+      </address>
+    </div>
+
+    <div class="card">
+      <h2>Haftungsausschluss</h2>
+      <p>
+        Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt.
+        Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte kann
+        jedoch keine Gewähr übernommen werden.
+      </p>
+      <p>
+        Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte
+        auf diesen Seiten nach den allgemeinen Gesetzen verantwortlich.
+        Nach §§ 8 bis 10 TMG sind wir als Diensteanbieter jedoch nicht
+        verpflichtet, übermittelte oder gespeicherte fremde Informationen zu
+        überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige
+        Tätigkeit hinweisen.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2>Urheberrecht</h2>
+      <p>
+        Die durch die Seitenbetreiberin erstellten Inhalte und Werke auf dieser
+        Website unterliegen dem deutschen Urheberrecht. Die Vervielfältigung,
+        Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der
+        Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung der
+        jeweiligen Autorin.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-name">Sabine Boldt</p>
+    <ul class="footer-links">
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+    <p class="footer-copy">&copy; 2025 Sabine Boldt &middot; Alle Rechte vorbehalten</p>
+  </footer>
+
+</body>
+</html>

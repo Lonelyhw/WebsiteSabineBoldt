@@ -162,11 +162,7 @@
     .nav-links a:hover { color: var(--text-dark); }
 
     /* Hamburger */
-    .hamburger {
-      display: none; flex-direction: column; gap: 5px;
-      background: none; border: none; cursor: pointer; padding: 4px;
-    }
-    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-dark); transition: .3s; }
+    .hamburger { display: none; }
 
     /* =============================================
        SECTION BASICS
@@ -177,13 +173,13 @@
     .s-label {
       font-size: .72rem; font-weight: 400;
       letter-spacing: .25em; text-transform: uppercase;
-      color: var(--turquoise);
+      color: var(--text-mid);
       display: flex; align-items: center; gap: .7rem;
       margin-bottom: .9rem;
     }
     .s-label::after {
       content: ''; display: inline-block;
-      width: 28px; height: 1px; background: var(--turquoise);
+      width: 28px; height: 1px; background: var(--lilac);
     }
     .s-title {
       font-family: var(--serif);
@@ -520,7 +516,6 @@
       .hero-eyebrow { justify-content: center; }
 
       .ueber-grid, .kontakt-grid { grid-template-columns: 1fr; }
-      .angebote-grid { grid-template-columns: 1fr; }
       .form-row-2    { grid-template-columns: 1fr; }
 
       .nav-links {
@@ -533,7 +528,6 @@
         border-bottom: 1px solid rgba(255,255,255,.3);
       }
       .nav-links.open { display: flex; }
-      .hamburger      { display: flex; }
     }
     @media (max-width: 580px) {
       .sabine-photo { width: 240px; height: 300px; }
@@ -591,12 +585,8 @@
     <a href="#hero" class="nav-logo">Sabine Boldt</a>
     <ul class="nav-links" id="nav-links">
       <li><a href="#ueber">Über mich</a></li>
-      <li><a href="#angebote">Angebote</a></li>
       <li><a href="#kontakt">Kontakt</a></li>
     </ul>
-    <button class="hamburger" id="hamburger" aria-label="Menü">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
 
   <!-- =============================================
@@ -633,7 +623,7 @@
         -->
         <img
           class="sabine-photo"
-          src=""
+          src="Sabine_hero.jpeg"
           alt="Sabine Boldt – Gesundheitsberaterin"
         >
 
@@ -704,90 +694,6 @@
   </section>
 
   <!-- =============================================
-       ANGEBOTE
-  ============================================= -->
-  <section id="angebote" class="section">
-    <div class="section-inner">
-      <p class="s-label fi">Angebote</p>
-      <h2 class="s-title fi fi-d1">Was ich für dich <em>anbiete</em></h2>
-
-      <div class="angebote-grid">
-
-        <!-- Card 1 -->
-        <div class="card glass fi fi-d1">
-          <div class="card-icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <circle cx="20" cy="14" r="7" stroke="#C5A8D4" stroke-width="1.5"/>
-              <path d="M6 34c0-7 6-12 14-12s14 5 14 12" stroke="#7ECECE" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="20" cy="14" r="2.5" fill="#C5A8D4" opacity=".4"/>
-            </svg>
-          </div>
-          <!--
-            ============================================================
-            LEISTUNG 1 – Text anpassen:
-            ============================================================
-          -->
-          <h3 class="card-title">Erstgespräch</h3>
-          <p class="card-desc">
-            In einem entspannten, unverbindlichen Kennenlerngespräch erzählst du mir,
-            wo du gerade stehst und was du dir wünschst. Gemeinsam schauen wir,
-            wie ich dich am besten begleiten kann.
-          </p>
-          <p class="card-meta">60 Minuten · kostenlos · online oder persönlich</p>
-        </div>
-
-        <!-- Card 2 -->
-        <div class="card glass fi fi-d2">
-          <div class="card-icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <path d="M8 28c0-7 5-12 12-12s12 5 12 12" stroke="#F5C5A3" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="20" cy="12" r="5" stroke="#E8A0B0" stroke-width="1.5"/>
-              <path d="M16 22l4 5 4-5" stroke="#E8A0B0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <!--
-            ============================================================
-            LEISTUNG 2 – Text anpassen:
-            ============================================================
-          -->
-          <h3 class="card-title">Beratung</h3>
-          <p class="card-desc">
-            Individuell auf dich zugeschnittene Ernährungs- und Gesundheitsberatung.
-            Wir analysieren deine Situation, erarbeiten konkrete Schritte und
-            erstellen einen Plan, der wirklich in deinen Alltag passt.
-          </p>
-          <p class="card-meta">90 Minuten · Einzelsitzung · flexibel buchbar</p>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="card glass fi fi-d3">
-          <div class="card-icon">
-            <svg viewBox="0 0 40 40" fill="none">
-              <path d="M20 34c0 0-13-9-13-19 0-7 6-11 13-11s13 4 13 11c0 10-13 19-13 19Z"
-                    stroke="#7ECECE" stroke-width="1.5" fill="none"/>
-              <path d="M13 16l5 5 9-8" stroke="#C5A8D4" stroke-width="1.5"
-                    stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          <!--
-            ============================================================
-            LEISTUNG 3 – Text anpassen:
-            ============================================================
-          -->
-          <h3 class="card-title">Coaching</h3>
-          <p class="card-desc">
-            Langfristige, persönliche Begleitung auf deinem Weg zu mehr Gesundheit und Vitalität.
-            Regelmäßige Sessions, kontinuierliches Feedback und nachhaltige Veränderungen
-            für ein Leben in Balance.
-          </p>
-          <p class="card-meta">3- oder 6-Monats-Paket · individuell gestaltet</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- =============================================
        KONTAKT
   ============================================= -->
   <section id="kontakt" class="section">
@@ -831,7 +737,7 @@
 
         <!-- Form -->
         <div class="form-wrap glass fi fi-d2">
-          <form id="contact-form" novalidate>
+          <form id="contact-form" action="https://formspree.io/f/mqenevkw" method="POST" novalidate>
 
             <div class="form-row-2">
               <div class="form-group">
@@ -900,8 +806,8 @@
         href="impressum.html" / href="datenschutz.html"
         ============================================================
       -->
-      <li><a href="#">Impressum</a></li>
-      <li><a href="#">Datenschutz</a></li>
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
     </ul>
 
     <p class="footer-copy">&copy; 2025 Sabine Boldt &middot; Alle Rechte vorbehalten</p>
@@ -923,17 +829,11 @@
     );
     document.querySelectorAll('.fi').forEach(el => observer.observe(el));
 
-    // ── 2. Mobile Hamburger ───────────────────────────────────────
-    const ham = document.getElementById('hamburger');
-    const nav = document.getElementById('nav-links');
-    ham.addEventListener('click', () => nav.classList.toggle('open'));
-    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
-
-    // ── 3. Kontaktformular ────────────────────────────────────────
+    // ── 2. Kontaktformular ────────────────────────────────────────
     const form    = document.getElementById('contact-form');
     const success = document.getElementById('form-success');
 
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit', async e => {
       e.preventDefault();
 
       const fields = {
@@ -942,7 +842,6 @@
         nachricht: document.getElementById('nachricht'),
       };
 
-      // Clear previous errors
       Object.values(fields).forEach(f => f.classList.remove('input-error'));
 
       const invalid = Object.values(fields).filter(f => !f.value.trim());
@@ -954,12 +853,33 @@
         return;
       }
 
-      // Animate out form, show success
-      form.style.animation = 'form-out .38s ease forwards';
-      setTimeout(() => {
-        form.style.display = 'none';
-        success.classList.add('show');
-      }, 380);
+      const btn = form.querySelector('.btn-submit');
+      btn.disabled = true;
+      btn.textContent = 'Wird gesendet …';
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (res.ok) {
+          form.style.animation = 'form-out .38s ease forwards';
+          setTimeout(() => {
+            form.style.display = 'none';
+            success.classList.add('show');
+          }, 380);
+        } else {
+          btn.disabled = false;
+          btn.textContent = 'Nachricht senden';
+          alert('Es gab einen Fehler. Bitte versuche es erneut oder ruf direkt an.');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.textContent = 'Nachricht senden';
+        alert('Keine Verbindung. Bitte prüfe deine Internetverbindung.');
+      }
     });
   </script>
 
