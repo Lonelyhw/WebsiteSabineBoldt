@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sabine Boldt – Gesundheitsberaterin</title>
+  <meta name="description" content="Sabine Boldt – Ganzheitliche Gesundheitsberaterin. Gesünder. Freier. Du.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       CUSTOM PROPERTIES
+    ============================================= */
+    :root {
+      --turquoise:    #7ECECE;
+      --turquoise-l:  #B8E8E8;
+      --lilac:        #C5A8D4;
+      --lilac-l:      #DDD0EC;
+      --peach:        #F5C5A3;
+      --peach-l:      #FAE0CF;
+      --rose:         #E8A0B0;
+      --rose-l:       #F5C8D4;
+
+      --glass-bg:     rgba(255,255,255,0.18);
+      --glass-border: rgba(255,255,255,0.38);
+      --glass-shadow: 0 8px 40px rgba(197,168,212,0.18);
+
+      --text-dark:    #3D2E4A;
+      --text-mid:     #6B5578;
+      --text-light:   rgba(61,46,74,0.55);
+
+      --serif:  'Cormorant Garamond', Georgia, serif;
+      --sans:   'DM Sans', system-ui, sans-serif;
+    }
+
+    /* =============================================
+       RESET
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { font-family: var(--sans); color: var(--text-dark); overflow-x: hidden; }
+    img  { display: block; max-width: 100%; }
+    a    { text-decoration: none; color: inherit; }
+
+    /* =============================================
+       ANIMATED MESH-GRADIENT BACKGROUND
+    ============================================= */
+    .mesh-bg {
+      position: fixed; inset: 0; z-index: -2;
+      background: #F5EEFF;
+      overflow: hidden;
+    }
+    /* Each orb is a blurred radial gradient that drifts slowly */
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      will-change: transform;
+    }
+    .orb-1 {
+      width: 650px; height: 650px;
+      background: radial-gradient(circle, #B8E8E8 0%, #7ECECE 55%, transparent 100%);
+      top: -15%; left: -8%; opacity: .65;
+      animation: drift1 22s ease-in-out infinite;
+    }
+    .orb-2 {
+      width: 520px; height: 520px;
+      background: radial-gradient(circle, #DDD0EC 0%, #C5A8D4 55%, transparent 100%);
+      top: 15%; right: -8%; opacity: .6;
+      animation: drift2 19s ease-in-out infinite;
+    }
+    .orb-3 {
+      width: 480px; height: 480px;
+      background: radial-gradient(circle, #FAE0CF 0%, #F5C5A3 55%, transparent 100%);
+      bottom: 5%; left: 10%; opacity: .6;
+      animation: drift3 26s ease-in-out infinite;
+    }
+    .orb-4 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, #F5C8D4 0%, #E8A0B0 55%, transparent 100%);
+      bottom: -8%; right: 5%; opacity: .55;
+      animation: drift4 21s ease-in-out infinite;
+    }
+    .orb-5 {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, #E8F8FF 0%, #A8D8E8 55%, transparent 100%);
+      top: 48%; left: 38%; opacity: .5;
+      animation: drift5 17s ease-in-out infinite;
+    }
+    @keyframes drift1 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(55px,45px) scale(1.07); }
+      66%      { transform: translate(-30px,65px) scale(.94); }
+    }
+    @keyframes drift2 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      33%      { transform: translate(-55px,60px) scale(1.05); }
+      66%      { transform: translate(45px,-40px) scale(.92); }
+    }
+    @keyframes drift3 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      25%      { transform: translate(70px,-50px) scale(1.09); }
+      75%      { transform: translate(-45px,30px) scale(.91); }
+    }
+    @keyframes drift4 {
+      0%,100% { transform: translate(0,0) scale(1); }
+      40%      { transform: translate(-60px,-45px) scale(1.06); }
+      80%      { transform: translate(50px,25px) scale(.93); }
+    }
+    @keyframes drift5 {
+      0%,100% { transform: translate(0,0) scale(1); opacity:.5; }
+      50%      { transform: translate(45px,60px) scale(1.14); opacity:.72; }
+    }
+
+    /* =============================================
+       GLASSMORPHISM UTILITY
+    ============================================= */
+    .glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-shadow);
+    }
+
+    /* =============================================
+       SCROLL-FADE ANIMATIONS (IntersectionObserver)
+    ============================================= */
+    .fi          { opacity: 0; transform: translateY(28px); transition: opacity .75s ease, transform .75s ease; }
+    .fi.visible  { opacity: 1; transform: translateY(0); }
+    .fi-d1 { transition-delay: .1s; }
+    .fi-d2 { transition-delay: .2s; }
+    .fi-d3 { transition-delay: .3s; }
+    .fi-d4 { transition-delay: .45s; }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 2.5rem;
+      background: rgba(245,238,255,.14);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.28);
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.15rem; font-weight: 500;
+      letter-spacing: .03em; color: var(--text-dark);
+    }
+    .nav-links { display: flex; gap: 2.2rem; list-style: none; }
+    .nav-links a {
+      font-size: .82rem; font-weight: 400;
+      letter-spacing: .07em; color: var(--text-mid);
+      transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--text-dark); }
+
+    /* Hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 4px;
+    }
+    .hamburger span { display: block; width: 22px; height: 1.5px; background: var(--text-dark); transition: .3s; }
+
+    /* =============================================
+       SECTION BASICS
+    ============================================= */
+    .section { padding: 6rem 2rem; }
+    .section-inner { max-width: 1060px; margin: 0 auto; }
+
+    .s-label {
+      font-size: .72rem; font-weight: 400;
+      letter-spacing: .25em; text-transform: uppercase;
+      color: var(--turquoise);
+      display: flex; align-items: center; gap: .7rem;
+      margin-bottom: .9rem;
+    }
+    .s-label::after {
+      content: ''; display: inline-block;
+      width: 28px; height: 1px; background: var(--turquoise);
+    }
+    .s-title {
+      font-family: var(--serif);
+      font-size: clamp(2.2rem,4vw,3.4rem);
+      font-weight: 400; line-height: 1.2;
+      color: var(--text-dark); margin-bottom: 3rem;
+    }
+    .s-title em { font-style: italic; color: var(--lilac); }
+
+    /* =============================================
+       LOTUS SVG (reusable component via <use>)
+       Defined once in <defs>, referenced everywhere
+    ============================================= */
+
+    /* =============================================
+       HERO
+    ============================================= */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 7rem 2rem 4rem;
+    }
+    .hero-inner {
+      max-width: 1080px; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+    }
+
+    /* Hero text */
+    .hero-eyebrow {
+      font-size: .75rem; font-weight: 400;
+      letter-spacing: .22em; text-transform: uppercase;
+      color: var(--text-mid);
+      display: flex; align-items: center; gap: .75rem;
+      margin-bottom: 1.4rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 28px; height: 1px; background: var(--turquoise);
+    }
+    .hero-h1 {
+      font-family: var(--serif);
+      font-size: clamp(3.8rem,7.5vw,7rem);
+      line-height: 1.06; color: var(--text-dark);
+      margin-bottom: 1.5rem;
+    }
+    .hero-h1 .w-normal { font-weight: 300; }
+    .hero-h1 .w-italic { font-style: italic; font-weight: 400; color: var(--lilac); }
+    .hero-h1 .w-bold   { font-weight: 600; }
+
+    .hero-sub {
+      font-size: .88rem; font-weight: 300;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--text-mid); margin-bottom: 2.5rem;
+    }
+    .btn-primary {
+      display: inline-block;
+      padding: .9rem 2.3rem;
+      background: linear-gradient(135deg, rgba(197,168,212,.38), rgba(126,206,206,.32));
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 50px;
+      font-size: .82rem; font-weight: 400;
+      letter-spacing: .1em; color: var(--text-dark);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 22px rgba(197,168,212,.22);
+      transition: all .4s ease;
+    }
+    .btn-primary:hover {
+      background: linear-gradient(135deg, rgba(197,168,212,.58), rgba(126,206,206,.5));
+      box-shadow: 0 8px 34px rgba(197,168,212,.4);
+      transform: translateY(-2px);
+    }
+
+    /* Hero photo */
+    .hero-photo-wrap { position: relative; display: flex; justify-content: center; }
+    .hero-glow {
+      position: absolute; width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(197,168,212,.5) 0%, rgba(126,206,206,.3) 50%, transparent 70%);
+      top: 50%; left: 50%; transform: translate(-50%,-50%);
+      filter: blur(35px);
+      animation: pulse-glow 7s ease-in-out infinite;
+    }
+    @keyframes pulse-glow {
+      0%,100% { opacity:.7; transform: translate(-50%,-50%) scale(1); }
+      50%      { opacity:1;  transform: translate(-50%,-50%) scale(1.1); }
+    }
+    /* ↓ Hier Sabines Foto austauschen: src="dein-foto.jpg" */
+    .sabine-photo {
+      width: 300px; height: 380px;
+      object-fit: cover;
+      border-radius: 150px 150px 110px 110px;
+      border: 2px solid rgba(255,255,255,.65);
+      box-shadow:
+        0 22px 60px rgba(197,168,212,.35),
+        0 0 0 9px rgba(255,255,255,.18);
+      position: relative; z-index: 1;
+      /* Platzhalter-Hintergrund, solange kein Foto geladen ist */
+      background: linear-gradient(160deg, #DDD0EC 0%, #B8E8E8 60%, #FAE0CF 100%);
+    }
+    .hero-lotus {
+      position: absolute; bottom: -18px; right: 0;
+      width: 90px; height: 90px; opacity: .45; z-index: 2;
+    }
+
+    /* =============================================
+       ÜBER SABINE
+    ============================================= */
+    .ueber-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 2.5rem; align-items: start;
+    }
+    .ueber-text {
+      padding: 2.4rem; border-radius: 24px;
+    }
+    .ueber-text p {
+      font-size: .95rem; font-weight: 300;
+      line-height: 1.95; color: var(--text-mid);
+      margin-bottom: 1.2rem;
+    }
+    .ueber-text p:last-child { margin-bottom: 0; }
+
+    .quote-card {
+      padding: 2.8rem 2.4rem; border-radius: 24px;
+      background: linear-gradient(135deg, rgba(197,168,212,.18), rgba(126,206,206,.13));
+      position: relative; overflow: hidden;
+    }
+    .quote-mark {
+      position: absolute; top: -.4rem; left: 1.4rem;
+      font-family: var(--serif); font-size: 9rem;
+      color: var(--lilac); opacity: .2;
+      line-height: 1; pointer-events: none; user-select: none;
+    }
+    .quote-text {
+      font-family: var(--serif);
+      font-size: clamp(1.35rem,2.4vw,1.85rem);
+      font-weight: 400; font-style: italic;
+      line-height: 1.55; color: var(--text-dark);
+      margin-bottom: 1.4rem; position: relative; z-index: 1;
+    }
+    .quote-attr {
+      font-size: .75rem; font-weight: 400;
+      letter-spacing: .15em; text-transform: uppercase;
+      color: var(--text-mid);
+    }
+    .quote-lotus {
+      position: absolute; bottom: 1.2rem; right: 1.8rem;
+      width: 64px; height: 64px; opacity: .18;
+    }
+
+    /* =============================================
+       ANGEBOTE
+    ============================================= */
+    .angebote-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1.6rem;
+    }
+    .card {
+      padding: 2.4rem 2rem; border-radius: 24px;
+      position: relative; overflow: hidden;
+      transition: transform .4s ease, box-shadow .4s ease;
+      cursor: default;
+    }
+    /* Top accent line per card */
+    .card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2.5px;
+      border-radius: 24px 24px 0 0; opacity: .55;
+      transition: opacity .4s;
+    }
+    .card:nth-child(1)::before { background: linear-gradient(90deg, var(--turquoise), var(--lilac)); }
+    .card:nth-child(2)::before { background: linear-gradient(90deg, var(--lilac), var(--rose)); }
+    .card:nth-child(3)::before { background: linear-gradient(90deg, var(--rose), var(--peach)); }
+    .card:hover {
+      transform: translateY(-9px);
+      box-shadow: 0 24px 60px rgba(197,168,212,.35), 0 8px 30px rgba(126,206,206,.2);
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-icon { width: 44px; height: 44px; margin-bottom: 1.5rem; }
+    .card-icon svg { width: 40px; height: 40px; }
+
+    .card-title {
+      font-family: var(--serif); font-size: 1.55rem; font-weight: 500;
+      color: var(--text-dark); margin-bottom: .9rem;
+    }
+    .card-desc {
+      font-size: .88rem; font-weight: 300;
+      line-height: 1.85; color: var(--text-mid);
+      margin-bottom: 1.4rem;
+    }
+    .card-meta {
+      font-size: .74rem; font-weight: 400;
+      letter-spacing: .06em; color: var(--text-light);
+    }
+
+    /* =============================================
+       KONTAKT
+    ============================================= */
+    .kontakt-grid {
+      display: grid; grid-template-columns: 1fr 1.65fr;
+      gap: 2.5rem; align-items: start;
+    }
+    .kontakt-info { padding: 2.4rem; border-radius: 24px; }
+    .kontakt-info-title {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 400;
+      color: var(--text-dark); margin-bottom: .9rem;
+    }
+    .kontakt-info-txt {
+      font-size: .88rem; font-weight: 300;
+      line-height: 1.85; color: var(--text-mid); margin-bottom: 1.8rem;
+    }
+    .kontakt-row {
+      display: flex; align-items: center; gap: .75rem; margin-bottom: .9rem;
+    }
+    .kontakt-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: linear-gradient(135deg, rgba(197,168,212,.28), rgba(126,206,206,.18));
+      border: 1px solid rgba(255,255,255,.5);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .kontakt-val { font-size: .9rem; font-weight: 400; color: var(--text-dark); }
+    .kontakt-val small { display: block; font-size: .74rem; color: var(--text-light); margin-top: .1rem; }
+
+    /* Form */
+    .form-wrap { padding: 2.4rem; border-radius: 24px; }
+    .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-group label {
+      display: block; font-size: .7rem; font-weight: 400;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--text-mid); margin-bottom: .45rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: .8rem 1.05rem;
+      background: rgba(255,255,255,.24);
+      border: 1px solid rgba(255,255,255,.45);
+      border-radius: 12px;
+      font-family: var(--sans); font-size: .88rem; font-weight: 300;
+      color: var(--text-dark); outline: none;
+      transition: border-color .3s, box-shadow .3s, background .3s;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(107,85,120,.38); }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: rgba(197,168,212,.75);
+      background: rgba(255,255,255,.34);
+      box-shadow: 0 0 0 3px rgba(197,168,212,.14);
+    }
+    .form-group textarea { resize: none; min-height: 128px; }
+
+    .btn-submit {
+      width: 100%; padding: .95rem;
+      background: linear-gradient(135deg, rgba(197,168,212,.48), rgba(126,206,206,.38));
+      border: 1px solid rgba(255,255,255,.55);
+      border-radius: 12px;
+      font-family: var(--serif); font-size: 1.1rem; font-weight: 400;
+      letter-spacing: .05em; color: var(--text-dark);
+      cursor: pointer;
+      transition: all .4s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 20px rgba(197,168,212,.18);
+    }
+    .btn-submit:hover {
+      background: linear-gradient(135deg, rgba(197,168,212,.68), rgba(126,206,206,.55));
+      box-shadow: 0 8px 34px rgba(197,168,212,.38);
+      transform: translateY(-2px);
+    }
+
+    /* Validation error state */
+    .input-error {
+      border-color: rgba(232,160,176,.8) !important;
+      box-shadow: 0 0 0 3px rgba(232,160,176,.14) !important;
+    }
+
+    /* Success message */
+    .form-success {
+      display: none; text-align: center; padding: 2rem 1rem;
+    }
+    .form-success.show {
+      display: block;
+      animation: success-in .65s ease forwards;
+    }
+    @keyframes success-in {
+      from { opacity: 0; transform: scale(.94) translateY(12px); }
+      to   { opacity: 1; transform: scale(1)   translateY(0); }
+    }
+    .success-icon { width: 58px; height: 58px; margin: 0 auto 1.2rem; }
+    .form-success h3 {
+      font-family: var(--serif); font-size: 1.85rem; font-weight: 400;
+      color: var(--text-dark); margin-bottom: .65rem;
+    }
+    .form-success p {
+      font-size: .88rem; font-weight: 300;
+      line-height: 1.8; color: var(--text-mid);
+    }
+
+    @keyframes form-out {
+      to { opacity: 0; transform: translateY(-8px); }
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      padding: 3rem 2rem;
+      text-align: center;
+      border-top: 1px solid rgba(255,255,255,.3);
+      background: rgba(255,255,255,.09);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+    .footer-lotus { width: 42px; height: 42px; margin: 0 auto 1.4rem; opacity: .45; }
+    .footer-name  { font-family: var(--serif); font-size: 1.25rem; font-weight: 400; color: var(--text-dark); margin-bottom: .2rem; }
+    .footer-role  { font-size: .74rem; font-weight: 300; letter-spacing: .17em; text-transform: uppercase; color: var(--text-mid); margin-bottom: 1.8rem; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; list-style: none; }
+    .footer-links a { font-size: .74rem; letter-spacing: .08em; color: var(--text-light); transition: color .3s; }
+    .footer-links a:hover { color: var(--text-dark); }
+    .footer-copy  { font-size: .68rem; color: rgba(107,85,120,.38); margin-top: 1.4rem; }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 900px) {
+      .hero-inner {
+        grid-template-columns: 1fr; gap: 2.8rem; text-align: center;
+      }
+      .hero-text   { order: 2; }
+      .hero-photo-wrap { order: 1; }
+      .hero-eyebrow { justify-content: center; }
+
+      .ueber-grid, .kontakt-grid { grid-template-columns: 1fr; }
+      .angebote-grid { grid-template-columns: 1fr; }
+      .form-row-2    { grid-template-columns: 1fr; }
+
+      .nav-links {
+        display: none;
+        position: absolute; top: 100%; left: 0; right: 0;
+        background: rgba(245,238,255,.96);
+        backdrop-filter: blur(22px);
+        flex-direction: column;
+        padding: 1.4rem 2.5rem; gap: 1.1rem;
+        border-bottom: 1px solid rgba(255,255,255,.3);
+      }
+      .nav-links.open { display: flex; }
+      .hamburger      { display: flex; }
+    }
+    @media (max-width: 580px) {
+      .sabine-photo { width: 240px; height: 300px; }
+      .hero-glow    { width: 280px; height: 280px; }
+      .section      { padding: 4rem 1.4rem; }
+      nav           { padding: .9rem 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       ANIMATED BACKGROUND ORBS
+  ============================================= -->
+  <div class="mesh-bg" aria-hidden="true">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="orb orb-4"></div>
+    <div class="orb orb-5"></div>
+  </div>
+
+  <!-- =============================================
+       SVG DEFS — Lotus-Gradients (einmalig definiert)
+  ============================================= -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="lg-tc" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#C5A8D4"/>
+        <stop offset="100%" stop-color="#7ECECE"/>
+      </linearGradient>
+      <linearGradient id="lg-rp" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#E8A0B0"/>
+        <stop offset="100%" stop-color="#C5A8D4"/>
+      </linearGradient>
+      <linearGradient id="lg-po" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#F5C5A3"/>
+        <stop offset="100%" stop-color="#E8A0B0"/>
+      </linearGradient>
+      <radialGradient id="rg-center">
+        <stop offset="0%"   stop-color="#FAE0CF"/>
+        <stop offset="100%" stop-color="#F5C5A3"/>
+      </radialGradient>
+      <linearGradient id="lg-success" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%"   stop-color="#C5A8D4"/>
+        <stop offset="100%" stop-color="#7ECECE"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- =============================================
+       NAVIGATION
+  ============================================= -->
+  <nav>
+    <a href="#hero" class="nav-logo">Sabine Boldt</a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#ueber">Über mich</a></li>
+      <li><a href="#angebote">Angebote</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menü">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- =============================================
+       HERO
+  ============================================= -->
+  <section id="hero">
+    <div class="hero-inner">
+
+      <div class="hero-text">
+        <p class="hero-eyebrow fi">Gesundheitsberaterin</p>
+
+        <h1 class="hero-h1 fi fi-d1">
+          <span class="w-normal">Gesünder.</span><br>
+          <span class="w-italic">Freier.</span><br>
+          <span class="w-bold">Du.</span>
+        </h1>
+
+        <p class="hero-sub fi fi-d2">Sabine Boldt · Ganzheitliche Beratung</p>
+
+        <a href="#kontakt" class="btn-primary fi fi-d3">
+          Erstgespräch vereinbaren
+        </a>
+      </div>
+
+      <div class="hero-photo-wrap fi fi-d2">
+        <div class="hero-glow"></div>
+
+        <!--
+          ============================================================
+          FOTO AUSTAUSCHEN:
+          Ersetze das src-Attribut mit dem Pfad zu Sabines Foto.
+          Beispiel: src="bilder/sabine.jpg"
+          ============================================================
+        -->
+        <img
+          class="sabine-photo"
+          src=""
+          alt="Sabine Boldt – Gesundheitsberaterin"
+        >
+
+        <!-- Lotus-Deko neben dem Foto -->
+        <svg class="hero-lotus" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <path d="M50 86C50 86 28 66 28 45c0-11 10-19 22-19s22 8 22 19c0 21-22 41-22 41Z" fill="url(#lg-tc)"/>
+          <path d="M50 82C50 82 18 62 16 40 14 26 27 18 38 24c6 3 10 13 12 22 2-9 6-19 12-22 11-6 24 2 22 16C82 62 50 82 50 82Z" fill="url(#lg-rp)" opacity=".6"/>
+          <path d="M50 77C50 77 8 56 6 34 4 18 19 10 32 17c8 4 14 17 18 27 4-10 10-23 18-27 13-7 28 1 26 17C92 56 50 77 50 77Z" fill="url(#lg-po)" opacity=".35"/>
+          <circle cx="50" cy="52" r="6" fill="url(#rg-center)"/>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- =============================================
+       ÜBER SABINE
+  ============================================= -->
+  <section id="ueber" class="section">
+    <div class="section-inner">
+      <p class="s-label fi">Über mich</p>
+      <h2 class="s-title fi fi-d1">Gesundheit als <em>ganzheitlicher</em> Weg</h2>
+
+      <div class="ueber-grid">
+
+        <!-- Textcard -->
+        <!--
+          ============================================================
+          TEXT ANPASSEN:
+          Die drei Absätze unten beschreiben Sabines Philosophie.
+          Bitte nach Wunsch ersetzen.
+          ============================================================
+        -->
+        <div class="ueber-text glass fi fi-d1">
+          <p>
+            Ich begleite Menschen dabei, ihren eigenen Weg zu mehr Wohlbefinden zu entdecken –
+            jenseits von schnellen Lösungen und kurzfristigen Diäten. Mein Ansatz verbindet
+            fundiertes Ernährungswissen mit dem Blick auf den ganzen Menschen: Körper, Geist und Seele.
+          </p>
+          <p>
+            In meiner Beratung schaffst du Klarheit über deine persönlichen Bedürfnisse und
+            entwickelst nachhaltige Gewohnheiten, die wirklich zu deinem Leben passen.
+            Keine starren Pläne – sondern ein lebendiger, freudvoller Prozess.
+          </p>
+          <p>
+            Gemeinsam finden wir heraus, was dich in deiner Gesundheit einschränkt –
+            und was dir die Energie und Leichtigkeit gibt, die du dir wünschst.
+          </p>
+        </div>
+
+        <!-- Zitat-Card -->
+        <div class="quote-card glass fi fi-d2">
+          <span class="quote-mark" aria-hidden="true">„</span>
+          <blockquote class="quote-text">
+            Was wäre, wenn Gesundheit dein schönstes Abenteuer wird?
+          </blockquote>
+          <p class="quote-attr">— Sabine Boldt</p>
+
+          <svg class="quote-lotus" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+            <path d="M50 86C50 86 28 66 28 45c0-11 10-19 22-19s22 8 22 19c0 21-22 41-22 41Z" fill="url(#lg-tc)"/>
+            <path d="M50 82C50 82 18 62 16 40 14 26 27 18 38 24c6 3 10 13 12 22 2-9 6-19 12-22 11-6 24 2 22 16C82 62 50 82 50 82Z" fill="url(#lg-rp)" opacity=".7"/>
+            <circle cx="50" cy="52" r="6" fill="url(#rg-center)"/>
+          </svg>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       ANGEBOTE
+  ============================================= -->
+  <section id="angebote" class="section">
+    <div class="section-inner">
+      <p class="s-label fi">Angebote</p>
+      <h2 class="s-title fi fi-d1">Was ich für dich <em>anbiete</em></h2>
+
+      <div class="angebote-grid">
+
+        <!-- Card 1 -->
+        <div class="card glass fi fi-d1">
+          <div class="card-icon">
+            <svg viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="14" r="7" stroke="#C5A8D4" stroke-width="1.5"/>
+              <path d="M6 34c0-7 6-12 14-12s14 5 14 12" stroke="#7ECECE" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="20" cy="14" r="2.5" fill="#C5A8D4" opacity=".4"/>
+            </svg>
+          </div>
+          <!--
+            ============================================================
+            LEISTUNG 1 – Text anpassen:
+            ============================================================
+          -->
+          <h3 class="card-title">Erstgespräch</h3>
+          <p class="card-desc">
+            In einem entspannten, unverbindlichen Kennenlerngespräch erzählst du mir,
+            wo du gerade stehst und was du dir wünschst. Gemeinsam schauen wir,
+            wie ich dich am besten begleiten kann.
+          </p>
+          <p class="card-meta">60 Minuten · kostenlos · online oder persönlich</p>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card glass fi fi-d2">
+          <div class="card-icon">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M8 28c0-7 5-12 12-12s12 5 12 12" stroke="#F5C5A3" stroke-width="1.5" stroke-linecap="round"/>
+              <circle cx="20" cy="12" r="5" stroke="#E8A0B0" stroke-width="1.5"/>
+              <path d="M16 22l4 5 4-5" stroke="#E8A0B0" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <!--
+            ============================================================
+            LEISTUNG 2 – Text anpassen:
+            ============================================================
+          -->
+          <h3 class="card-title">Beratung</h3>
+          <p class="card-desc">
+            Individuell auf dich zugeschnittene Ernährungs- und Gesundheitsberatung.
+            Wir analysieren deine Situation, erarbeiten konkrete Schritte und
+            erstellen einen Plan, der wirklich in deinen Alltag passt.
+          </p>
+          <p class="card-meta">90 Minuten · Einzelsitzung · flexibel buchbar</p>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card glass fi fi-d3">
+          <div class="card-icon">
+            <svg viewBox="0 0 40 40" fill="none">
+              <path d="M20 34c0 0-13-9-13-19 0-7 6-11 13-11s13 4 13 11c0 10-13 19-13 19Z"
+                    stroke="#7ECECE" stroke-width="1.5" fill="none"/>
+              <path d="M13 16l5 5 9-8" stroke="#C5A8D4" stroke-width="1.5"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <!--
+            ============================================================
+            LEISTUNG 3 – Text anpassen:
+            ============================================================
+          -->
+          <h3 class="card-title">Coaching</h3>
+          <p class="card-desc">
+            Langfristige, persönliche Begleitung auf deinem Weg zu mehr Gesundheit und Vitalität.
+            Regelmäßige Sessions, kontinuierliches Feedback und nachhaltige Veränderungen
+            für ein Leben in Balance.
+          </p>
+          <p class="card-meta">3- oder 6-Monats-Paket · individuell gestaltet</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       KONTAKT
+  ============================================= -->
+  <section id="kontakt" class="section">
+    <div class="section-inner">
+      <p class="s-label fi">Kontakt</p>
+      <h2 class="s-title fi fi-d1">Lass uns <em>ins Gespräch</em> kommen</h2>
+
+      <div class="kontakt-grid">
+
+        <!-- Info -->
+        <div class="kontakt-info glass fi fi-d1">
+          <h3 class="kontakt-info-title">Sabine Boldt</h3>
+          <p class="kontakt-info-txt">
+            Ich freue mich auf deine Nachricht und melde mich
+            innerhalb von 24 Stunden bei dir zurück.
+          </p>
+
+          <div class="kontakt-row">
+            <div class="kontakt-icon">
+              <!-- Telefon-Icon -->
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24a11.36 11.36 0 003.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1C10.61 21 3 13.39 3 4c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.24 1.02l-2.21 2.2z"
+                      fill="#C5A8D4"/>
+              </svg>
+            </div>
+            <div class="kontakt-val">
+              01520 2626265
+              <small>Telefonisch &amp; WhatsApp</small>
+            </div>
+          </div>
+
+          <!-- Lotus-Deko -->
+          <div style="margin-top:2.5rem;text-align:center;opacity:.25">
+            <svg width="64" height="64" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+              <path d="M50 86C50 86 28 66 28 45c0-11 10-19 22-19s22 8 22 19c0 21-22 41-22 41Z" fill="url(#lg-tc)"/>
+              <path d="M50 82C50 82 18 62 16 40 14 26 27 18 38 24c6 3 10 13 12 22 2-9 6-19 12-22 11-6 24 2 22 16C82 62 50 82 50 82Z" fill="url(#lg-rp)" opacity=".65"/>
+              <circle cx="50" cy="52" r="6" fill="url(#rg-center)"/>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Form -->
+        <div class="form-wrap glass fi fi-d2">
+          <form id="contact-form" novalidate>
+
+            <div class="form-row-2">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Dein Name" required>
+              </div>
+              <div class="form-group">
+                <label for="email">E-Mail</label>
+                <input type="email" id="email" name="email" placeholder="deine@email.de" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="telefon">
+                Telefon
+                <span style="opacity:.5;font-style:italic;text-transform:none;letter-spacing:0">(optional)</span>
+              </label>
+              <input type="tel" id="telefon" name="telefon" placeholder="0123 456789">
+            </div>
+
+            <div class="form-group">
+              <label for="nachricht">Nachricht</label>
+              <textarea id="nachricht" name="nachricht" placeholder="Wie kann ich dir helfen?" required></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Nachricht senden</button>
+          </form>
+
+          <!-- Erfolgs-Nachricht -->
+          <div class="form-success" id="form-success">
+            <svg class="success-icon" viewBox="0 0 60 60" fill="none">
+              <circle cx="30" cy="30" r="28" stroke="url(#lg-success)" stroke-width="1.5"/>
+              <path d="M18 30l9 9 15-15" stroke="url(#lg-success)" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h3>Vielen Dank!</h3>
+            <p>
+              Deine Nachricht ist angekommen. Ich melde mich so bald wie möglich –
+              in der Regel innerhalb von 24 Stunden.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer>
+    <svg class="footer-lotus" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+      <path d="M50 86C50 86 28 66 28 45c0-11 10-19 22-19s22 8 22 19c0 21-22 41-22 41Z" fill="url(#lg-tc)"/>
+      <path d="M50 82C50 82 18 62 16 40 14 26 27 18 38 24c6 3 10 13 12 22 2-9 6-19 12-22 11-6 24 2 22 16C82 62 50 82 50 82Z" fill="url(#lg-rp)" opacity=".7"/>
+      <circle cx="50" cy="52" r="5" fill="url(#rg-center)"/>
+    </svg>
+
+    <p class="footer-name">Sabine Boldt</p>
+    <p class="footer-role">Gesundheitsberaterin</p>
+
+    <ul class="footer-links">
+      <!--
+        ============================================================
+        IMPRESSUM / DATENSCHUTZ:
+        Hier die Links zu deinen Seiten eintragen, z.B.:
+        href="impressum.html" / href="datenschutz.html"
+        ============================================================
+      -->
+      <li><a href="#">Impressum</a></li>
+      <li><a href="#">Datenschutz</a></li>
+    </ul>
+
+    <p class="footer-copy">&copy; 2025 Sabine Boldt &middot; Alle Rechte vorbehalten</p>
+  </footer>
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    // ── 1. Scroll-fade via IntersectionObserver ──────────────────
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      }),
+      { threshold: 0.14, rootMargin: '0px 0px -36px 0px' }
+    );
+    document.querySelectorAll('.fi').forEach(el => observer.observe(el));
+
+    // ── 2. Mobile Hamburger ───────────────────────────────────────
+    const ham = document.getElementById('hamburger');
+    const nav = document.getElementById('nav-links');
+    ham.addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+    // ── 3. Kontaktformular ────────────────────────────────────────
+    const form    = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const fields = {
+        name:      document.getElementById('name'),
+        email:     document.getElementById('email'),
+        nachricht: document.getElementById('nachricht'),
+      };
+
+      // Clear previous errors
+      Object.values(fields).forEach(f => f.classList.remove('input-error'));
+
+      const invalid = Object.values(fields).filter(f => !f.value.trim());
+      if (invalid.length) {
+        invalid.forEach(f => {
+          f.classList.add('input-error');
+          f.addEventListener('input', () => f.classList.remove('input-error'), { once: true });
+        });
+        return;
+      }
+
+      // Animate out form, show success
+      form.style.animation = 'form-out .38s ease forwards';
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.classList.add('show');
+      }, 380);
+    });
+  </script>
+
+</body>
+</html>
